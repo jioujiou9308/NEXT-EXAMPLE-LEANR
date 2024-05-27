@@ -18,7 +18,7 @@ const Protected: NextPage = () => {
     <div>
       This page is protected for special people
       <h1>{session.status === "authenticated" ? "登入狀態" : "未登入狀態"}</h1>
-      <h1>{JSON.stringify(session?.data.user, null, 2)}</h1>
+      <h1>{JSON.stringify(session?.data?.user, null, 2)}</h1>
     </div>
   );
 };

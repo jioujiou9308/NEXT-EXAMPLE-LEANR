@@ -1,4 +1,6 @@
 # 各Page內容介紹
+- Next Component主要就是為了練習next文黨立面的各種功能，舉然redirect、Link、router等等
+
 
 ## component-part-1
 
