@@ -14,7 +14,7 @@ const SignIn = () => {
       redirect: false,
     });
 
-    console.log("res", res);
+    // console.log("res", res);
   };
   return (
     <div className="sign-in-form">

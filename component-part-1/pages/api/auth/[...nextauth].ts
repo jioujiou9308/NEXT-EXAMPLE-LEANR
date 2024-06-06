@@ -11,8 +11,8 @@ const authOptions: NextAuthOptions = {
       // 可以在credentials裡面加入內建提供的使用方法
       // 如果想要使用內建的方法的話可以在後面的pages裡面使用自己建立的page
       credentials: {
-        email: { label: "內建Email~", type: "email" },
-        password: { label: "內建Password", type: "password" },
+        // email: { label: "內建Email~", type: "email" },
+        // password: { label: "內建Password", type: "password" },
       },
       authorize(credentials, req) {
         const { email, password } = credentials as {
@@ -25,6 +25,7 @@ const authOptions: NextAuthOptions = {
           throw new Error("帳號或密碼錯誤");
         }
 
+        console.log('req', req)
         return { id: "1234", name: "Wei", email: "asdfasdfasdf" };
       },
     }),
@@ -32,6 +33,13 @@ const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
   },
+  callbacks:{
+    async signIn({user}){
+      console.log('user in callbacks', user)
+      console.log('test~~~~~~~~~~~~')
+      return true
+    }
+  }
 };
 
 export default NextAuth(authOptions);
