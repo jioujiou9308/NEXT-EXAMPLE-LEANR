@@ -1,10 +1,10 @@
 export function middleware(req, res) {
-  console.log("req.nextUrl.pathname", req.nextUrl.pathname);
-  console.log("middleware");
-  if (req.nextUrl.pathname === "/middleware/path-1") {
-    let cookies = req.cookies.getAll()
-    console.log('cookies', cookies)
-  }
+  // console.log("req.nextUrl.pathname", req.nextUrl.pathname);
+  // console.log("middleware");
+  // if (req.nextUrl.pathname === "/middleware/path-1") {
+  //   let cookies = req.cookies.getAll()
+  //   console.log('cookies', cookies)
+  // }
 }
 
 
