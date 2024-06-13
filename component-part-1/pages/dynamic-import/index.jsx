@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <div>
       <Header />
-      {/* <Component /> */}
+      <Component />
       <div>Dynamic Import</div>
     </div>
   );
