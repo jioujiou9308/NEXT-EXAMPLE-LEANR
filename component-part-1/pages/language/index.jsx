@@ -1,7 +1,6 @@
 import React from "react";
 
 export async function getStaticProps(context) {
-  console.log("context", context);
   return {
     props: {},
   };

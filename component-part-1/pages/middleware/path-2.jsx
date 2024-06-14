@@ -1,18 +1,18 @@
-import React from 'react'
-
+import React, { useEffect } from "react";
 
 export async function getStaticProps(context) {
-  console.log('context', context)
   return {
-    props: {}
-  }
-
+    props: {},
+  };
 }
 
 const Path2 = () => {
-  return (
-    <div>Path2</div>
-  )
-}
+  useEffect(() => {
+    fetch("/api/cookies/get-cookie", { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+  return <div>Path2</div>;
+};
 
-export default Path2
+export default Path2;
