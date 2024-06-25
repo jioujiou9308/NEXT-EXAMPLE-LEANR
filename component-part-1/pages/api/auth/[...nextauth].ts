@@ -25,7 +25,7 @@ const authOptions: NextAuthOptions = {
           throw new Error("帳號或密碼錯誤");
         }
 
-        console.log('req', req)
+        console.log("req", req);
         return { id: "1234", name: "Wei", email: "asdfasdfasdf" };
       },
     }),
@@ -33,13 +33,13 @@ const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
   },
-  callbacks:{
-    async signIn({user}){
-      console.log('user in callbacks', user)
-      console.log('test~~~~~~~~~~~~')
-      return true
-    }
-  }
+  callbacks: {
+    async signIn({ user }) {
+      console.log("user in callbacks", user);
+      console.log("test~~~~~~~~~~~~");
+      return true;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
