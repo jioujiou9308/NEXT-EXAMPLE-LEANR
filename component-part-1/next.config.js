@@ -1,23 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   i18n: {
-    locales: [
-      "en-US",
-      "en-GB",
-      "es",
-      "de",
-      "fr",
-      "pl",
-      "it",
-      "nl",
-      "ko",
-      "ja",
-      "zh-TW",
-      "zh-CN",
-    ],
+    locales: ["en-US", "en-GB", "es", "de", "fr", "pl", "it", "nl", "ko", "ja", "zh-TW", "zh-CN"],
     defaultLocale: "en-US",
   },
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/language",
+        destination: "/middleware/path-2",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
