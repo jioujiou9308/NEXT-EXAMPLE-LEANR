@@ -1,0 +1,14 @@
+{
+  "/middleware/path-1": {
+    "destination": "/redirect-page/redirect1",
+    "permanent": true
+  },
+  "/middleware/path-2": {
+    "destination": "/redirect-page/redirect2",
+    "permanent": true
+  },
+  "/middleware/path-3": {
+    "destination": "/redirect-page/redirect3",
+    "permanent": true
+  }
+}

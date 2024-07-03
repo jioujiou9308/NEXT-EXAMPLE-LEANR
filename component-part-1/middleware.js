@@ -125,9 +125,28 @@ import { NextResponse } from "next/server";
 // };
 // ! Q1: 為什麼我設定了少了GET的時候我在path-2設定的fetch還是會成功拿到資料
 // ---------------------------------------------------------------
+import RedirectFile from "./utils/redirect-file.json";
 
-export function middleware(req,event){}
+export function middleware(req) {
+  const pathname = req.nextUrl.pathname;
 
+  // 直接使用导入的 JSON 对象
+  if (pathname in RedirectFile) {
+    const destination = RedirectFile[pathname].destination;
+    const permanent = RedirectFile[pathname].permanent;
+
+    // 根据 permanent 的值使用正确的状态码
+    const statusCode = permanent ? 308 : 307;
+
+    console.log("destination", destination);
+    const absoluteUrl = `${req.nextUrl.origin}${destination}`;
+    // 使用 NextResponse.redirect 来进行重定向
+    return NextResponse.redirect(absoluteUrl, statusCode);
+  }
+
+  // 如果没有匹配的路径，继续处理请求
+  return NextResponse.next();
+}
 
 // export const config = {
 //   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
