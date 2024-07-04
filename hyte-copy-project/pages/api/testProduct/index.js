@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     const { method } = req
     dbConnect();
     if (method === 'POST') {
-        console.log('req.body :>> ', req.body);
+        console.log('req.body  ', req.body);
         try {
             const result = await TestProduct.create(req.body)
             res.status(200).json(result)
