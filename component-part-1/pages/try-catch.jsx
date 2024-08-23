@@ -17,7 +17,7 @@ const fetch2 = async () => {
     return data2;
   } catch (error) {
     console.log("子層");
-    throw new Error("fetch2 error");
+    throw { message: "fetch2 error", status: 400 };
   }
 };
 const fetch3 = async () => {
@@ -37,8 +37,8 @@ const fetchAll = async () => {
     await fetch3();
     return "success";
   } catch (error) {
-    console.log("內層");
-    throw error
+    console.log("內層error", error);
+    throw error;
   }
 };
 
@@ -48,8 +48,7 @@ const TryCatch = () => {
       try {
         await fetchAll();
       } catch (error) {
-        console.log("外層");
-        console.log("error", error);
+        console.log(" 外層 error", error);
       }
     };
     fetchData();

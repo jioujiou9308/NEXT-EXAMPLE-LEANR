@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 
 export const getStaticProps = async (context) => {
   const { product } = context.params;
-  console.log("product", product);
   const color = ["red", "white", "black", "blue"];
   const existColor = ["white"];
   const url1 = ["y60", "y70"];
@@ -11,14 +10,35 @@ export const getStaticProps = async (context) => {
 
   const newUrl = `/product2/${url1[0]}/${color[1]}`;
 
-  if (!checkExist) {
+  const data = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+  const result = await data.json();
+  const body = result.body;
+
+  if (!body) {
+    if (process.env.npm_lifecycle_event === "build")
+      return {
+        notFound: true,
+      };
     return {
-      props: {
-        redirect: true,
-        newUrl,
+      redirect: {
+        destination: "/",
+        permanent: false,
       },
     };
   }
+  
+  // if(!checkExist){
+  //   return { notFound: true };
+  // }
+
+  // if (!checkExist) {
+  //   return {
+  //     props: {
+  //       redirect: true,
+  //       newUrl,
+  //     },
+  //   };
+  // }
 
   return {
     props: { product, redirect: false },
@@ -38,11 +58,7 @@ export const getStaticPaths = async () => {
 };
 const Product = ({ product, redirect, newUrl }) => {
   const router = useRouter();
-  useEffect(() => {
-    if (redirect) {
-      router.replace(newUrl);
-    }
-  });
+
   if (redirect) {
     return <p>redirect</p>;
   }
