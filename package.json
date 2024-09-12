@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@vercel/edge-config": "^1.2.0",
-    "bloom-filters": "^3.0.2"
-  }
-}
