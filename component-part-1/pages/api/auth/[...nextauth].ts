@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
@@ -19,14 +19,14 @@ const authOptions: NextAuthOptions = {
           email: string;
           password: string;
         };
+
         //  perform you login logic
         // find out user from db
         if (email !== "test@gmail.com" || password !== "123") {
           throw new Error("帳號或密碼錯誤");
         }
 
-        console.log("req", req);
-        return { id: "1234", name: "Wei", email: "asdfasdfasdf" };
+        return { id: "1234", name: "Wei", email: "test@gmail.com" };
       },
     }),
   ],
@@ -34,12 +34,15 @@ const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
   callbacks: {
-    async signIn({ user }) {
-      console.log("user in callbacks", user);
-      console.log("test~~~~~~~~~~~~");
-      return true;
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      session.user = token;
+      return session;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);

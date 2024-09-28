@@ -4,21 +4,21 @@ import { useSession } from "next-auth/react";
 import Router from "next/router";
 
 const Protected: NextPage = () => {
-  const session = useSession();
-  console.log("session", session);
-  useEffect(() => {
-    if (session.status === "unauthenticated") {
+  const { data, status, update } = useSession({
+    required: true,
+    onUnauthenticated: () => {
       Router.push("/auth/signin");
-    }
-  }, [session.status]);
-
-  if (session.status === "loading") return "Loading...";
+    },
+  });
+  console.log("data", data);
+  console.log("status", status);
+  console.log("update", update);
 
   return (
     <div>
       This page is protected for special people
-      <h1>{session.status === "authenticated" ? "登入狀態" : "未登入狀態"}</h1>
-      <h1>{JSON.stringify(session?.data?.user, null, 2)}</h1>
+      <h1>{status === "authenticated" ? "登入狀態" : "未登入狀態"}</h1>
+      <h1>{JSON.stringify(data?.user, null, 2)}</h1>
     </div>
   );
 };
