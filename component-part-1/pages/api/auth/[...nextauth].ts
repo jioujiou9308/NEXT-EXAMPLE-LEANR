@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions: NextAuthOptions = {
+export default NextAuth({
   session: {
     strategy: "jwt",
   },
@@ -33,16 +33,38 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
   },
+  // account 是針對第三方登入的資料
+  // profile 也是針對第三方登入的資料
+
+  // 如果沒有callback我們就沒有辦法在protected中看到token夾帶的相關資料(iat,exp,jti等等)
   callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
-    },
     async session({ session, token }) {
       session.user = token;
+      token.aaabbb = "aaabbb";
       return session;
     },
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-};
+    async jwt({ token, user, profile, account }) {
+      // console.log("profile", profile);
+      // console.log("account", account);
+      // console.log("token", token);
+      token.test = "test";
+      return { ...token, ...user };
+    },
 
-export default NextAuth(authOptions);
+    async signIn({ user, account, profile }) {
+      // console.log("signIn", user, account, profile);
+      return true;
+    },
+    // async redirect({ url, baseUrl }) {
+    //   // Allows relative callback URLs
+    //   console.log("url", url);
+    //   console.log("baseUrl", baseUrl);
+    //   if (url.startsWith("/")) return `${baseUrl}${url}`;
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url;
+    //   return baseUrl;
+    // },
+  },
+  cookies: {},
+  secret: "1234567890",
+});

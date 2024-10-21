@@ -10,9 +10,9 @@ const Protected: NextPage = () => {
       Router.push("/auth/signin");
     },
   });
-  console.log("data", data);
-  console.log("status", status);
-  console.log("update", update);
+  // console.log("data", data);
+  // console.log("status", status);
+  // console.log("update", update);
 
   return (
     <div>

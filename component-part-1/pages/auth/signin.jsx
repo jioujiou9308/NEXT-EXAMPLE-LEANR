@@ -16,6 +16,8 @@ const SignIn = () => {
     console.log("res", res);
   };
   const { data: session, status } = useSession();
+  const all = useSession();
+  console.log('all', all)
 
   useEffect(() => {
     if (status === "authenticated") {
